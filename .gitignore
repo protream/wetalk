@@ -1,0 +1,6 @@
+*.swp
+ENV/
+*.pyc
+.cache/
+node_modules/
+dist/

@@ -1,0 +1,33 @@
+{
+  "name": "Wetalk",
+  "description": "A forum build with Flask and VueJS.",
+  "version": "1.0.0",
+  "author": "@protream",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack --hide-modules --watch",
+    "build": "cross-env NODE_ENV=production webpack --hide-modules"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "vue": "^2.3.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-env": "^1.5.1",
+    "clean-webpack-plugin": "^0.1.16",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.9.0",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.18.2",
+    "vue-loader": "^12.1.0",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.6.1",
+    "webpack-manifest-plugin": "^1.2.1"
+  }
+}
