@@ -8,33 +8,19 @@
     {% block head_meta %}{% endblock %}
     {% block head_css %}
       <link rel="stylesheet" href="{{ '/static/dist/' + manifest.get('common.css') }}">
+      <link rel="stylesheet" href="{{ '/static/dist/' + manifest.get('main.css') }}">
     {% endblock %}
   </head>
 
   <body>
-    {% block navbar %}
-      <div class="container">
-        <!-- Split button -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-danger">Action</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-           </button>
-           <ul class="dropdown-menu">
-             <li><a href="#">Action</a></li>
-             <li><a href="#">Another action</a></li>
-             <li><a href="#">Something else here</a></li>
-             <li role="separator" class="divider"></li>
-             <li><a href="#">Separated link</a></li>
-           </ul>
-        </div>
-      </div>
-    {% endblock %}
     {% block body %}
       <div id="app">
       </div>
     {% endblock %}
+    {% block footer %}{% endblock %}
+    {% block tail_js %}
       <script src="{{ '/static/dist/' + manifest.get('common.js') }}"></script>
+      <script src="{{ '/static/dist/' + manifest.get('main.js') }}"></script>
+    {% endblock %}
   </body>
 </html>

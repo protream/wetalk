@@ -5,4 +5,4 @@
 
     :copyright: (c) 2017 by protream.
 """
-from .base import db
+from .base import db, Message

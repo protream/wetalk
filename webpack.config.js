@@ -19,6 +19,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './wetalk/static/dist/'),
     filename: 'js/[name].[chunkhash:8].js',
+    publicPath: '/static/dist/'
   },
 
   module: {
@@ -73,10 +74,6 @@ module.exports = {
   plugins: [
     new ManifestPlugin(),
     new CleanWebpackPlugin(['wetalk/static/dist']),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'js/common.[chunkhash:8].js'
-    }),
     new ExtractTextPlugin({
       filename: 'css/[name].[chunkhash:8].css',
       allChunks: true
