@@ -6,7 +6,7 @@
     :copyright: (c) 2017 by protream.
 """
 import pytest
-from wetalk.app import create_app
+from wetalk import create_app
 
 
 @pytest.fixture

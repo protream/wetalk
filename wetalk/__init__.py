@@ -26,6 +26,7 @@ def register_extensions(app):
 
 def register_bluprints(app):
     blueprints = [
+        'wetalk.api.base.bp',
         'wetalk.handlers.front.bp'
     ]
     for bp in blueprints:

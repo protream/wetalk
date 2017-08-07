@@ -7,6 +7,12 @@
 """
 
 
-def test_home(app, client):
-    rv = client.get('/')
+def test_hello(app, client):
+    rv = client.get(
+        '/api/hello',
+        headers={'content-type': 'application/json',
+                 'accept': 'application/json'}
+    )
+    print(dir(rv))
     assert rv.status_code == 200
+    assert rv.json == dict(message='Hello Vue!')
