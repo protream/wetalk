@@ -59,6 +59,24 @@
           password: ''
         })
       }
+    },
+
+    methods: {
+      registerSubmit() {
+        this.registerForm.post('/api/user')
+          .then(data => {
+            this.$store.commit('recordMe', { me: data })
+            this.$store.commit('hideLoginForm')
+          })
+      },
+
+      loginSubmit() {
+        this.loginForm.post('/api/user/session')
+          .then(data => {
+            this.$store.commit('recordMe', { me: data })
+            this.$store.commit('hideLoginForm')
+          })
+      }
     }
   }
 </script>

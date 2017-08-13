@@ -12,19 +12,19 @@
              <li><router-link to="/about">关于</router-link></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li v-if="!user.username">
+            <li v-if="!$store.state.me.username">
               <a @click="$store.commit('showLoginForm')">登录</a>
             </li>
-            <li class="dropdown" v-if="user.username">
+            <li class="dropdown" v-if="$store.state.me.username">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <avatar :alt="user.username" :size="28"></avatar>
+                <avatar :alt="$store.state.me.username" :size="28"></avatar>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li><a href="#">我的主页</a></li>
                 <li><a href="#">个人设置</a></li>
-                 <li role="separator" class="divider"></li>
-                <li><router-link to="/">退出登录</router-link></li>
+                <li role="separator" class="divider"></li>
+                <li><a @click="logout">退出登录</a></li>
               </ul>
             </li>
           </ul>
@@ -47,22 +47,20 @@
   import LoginForm from './components/LoginForm.vue'
 
   export default {
-    data() {
-      return {
-        user: { name: 'protream'}
-      }
-    },
-    methods: {
-    },
-    computed: {
-      user() {
-        return this.$store.state.me
-      }
-    },
     components: {
       Avatar,
       LoginForm
     },
+    methods: {
+      logout() {
+        http.delete('api/user/session')
+          .then(({ data }) => this.$store.commit('recordMe', { me: data }))
+      }
+    },
+    created() {
+      http.get('/api/user/me')
+        .then(({ data }) => this.$store.commit('recordMe', { me: data }))
+    }
   }
 </script>
 

@@ -14,7 +14,8 @@ const getters = {
 
 const mutations = {
   showLoginForm: state => state.loginForm = true,
-  hideLoginForm: state => state.loginForm = false
+  hideLoginForm: state => state.loginForm = false,
+  recordMe: (state, { me }) => state.me = me
 }
 
 const actions = {
