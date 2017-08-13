@@ -8,6 +8,7 @@
 import os
 import json
 
+from flask import jsonify
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug import import_string
 
@@ -25,22 +26,35 @@ def register_extensions(app):
 
 
 def register_bluprints(app):
-    blueprints = [
-        'wetalk.api.base.bp',
-        'wetalk.handlers.front.bp'
-    ]
-    for bp in blueprints:
-        app.register_blueprint(import_string(bp))
+    # 原来的方式会导致循环引用
+    from .handlers import front
+    from .api import api
+    app.register_blueprint(front)
+    app.register_blueprint(api)
 
 
 def register_error_hanlers(app):
-    pass
+    """ 因为使用接口通信，出错时也返回 JSON 数据
+    """
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify('Not Found'), 404
+
+    @app.errorhandler(500)
+    def server_error(error):
+        return jsonify('Server Error'), 500
+
 
 
 def register_context_processors(app):
 
     @app.context_processor
     def manifest():
+        """ minifest 文件就是 webpack 打包正常的一个依赖清单，
+            原文件是 JSON 格式的，这里将它加载为 dict 并注入
+            到 Jinja 环境中
+        """
         manifest = {}
         try:
             with open(APP_DIR + '/static/dist/manifest.json', 'r') as f:
@@ -53,6 +67,7 @@ def register_context_processors(app):
 
 
 def create_app(config):
+    """ App 工厂"""
     app = Flask(__name__)
 
     if isinstance(config, dict):

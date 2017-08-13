@@ -7,9 +7,9 @@
 
 from flask import jsonify
 
-from .base import bp
+from . import api
 
 
-@bp.route('/hello', methods=['GET'])
+@api.route('/hello', methods=['GET'])
 def hello():
     return jsonify(message='Hello Vue!')
