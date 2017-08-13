@@ -12,12 +12,12 @@
              <li><router-link to="/about">关于</router-link></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li v-if="!user.username">
+            <li v-if="!$store.state.me.username">
               <a @click="$store.commit('showLoginForm')">登录</a>
             </li>
-            <li class="dropdown" v-if="user.username">
+            <li class="dropdown" v-if="$store.state.me.username">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <avatar :alt="user.username" :size="28"></avatar>
+                <avatar :alt="$store.state.me.username" :size="28"></avatar>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
@@ -47,18 +47,6 @@
   import LoginForm from './components/LoginForm.vue'
 
   export default {
-    data() {
-      return {
-        user: { name: 'protream'}
-      }
-    },
-    methods: {
-    },
-    computed: {
-      user() {
-        return this.$store.state.me
-      }
-    },
     components: {
       Avatar,
       LoginForm
