@@ -24,11 +24,11 @@
         </div>
       </div>
 
-        <!-- <div class="home__post-list">
+        <div class="home__post-list">
           <post-item v-for="post in posts" :post="post"></post-item>
           <div class="home__loadmore">Load More</div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

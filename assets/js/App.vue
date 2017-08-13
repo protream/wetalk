@@ -12,22 +12,20 @@
              <li><router-link to="/about">关于</router-link></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li v-if="!user.name">
-              <a>登录</a>
+            <li v-if="!user.username">
+              <a @click="$store.commit('showLoginForm')">登录</a>
             </li>
-            <li v-if="user.name">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <avatar :alt="user.name" :size="28"></avatar>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">我的主页</a></li>
-                  <li><a href="#">个人设置</a></li>
-                   <li role="separator" class="divider"></li>
-                  <li><router-link to="/">退出登录</router-link></li>
-                </ul>
-              </li>
+            <li class="dropdown" v-if="user.username">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <avatar :alt="user.username" :size="28"></avatar>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">我的主页</a></li>
+                <li><a href="#">个人设置</a></li>
+                 <li role="separator" class="divider"></li>
+                <li><router-link to="/">退出登录</router-link></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -39,12 +37,14 @@
      Copyright © 2017 By Protream
      </div>
     </div>
+    <login-form v-if="$store.state.loginForm"></login-form>
     </div>
   </div>
 </template>
 
 <script>
   import Avatar from './components/Avatar.vue'
+  import LoginForm from './components/LoginForm.vue'
 
   export default {
     data() {
@@ -53,13 +53,16 @@
       }
     },
     methods: {
-      logout() {
-        console.log('logout')
+    },
+    computed: {
+      user() {
+        return this.$store.state.me
       }
     },
     components: {
-      Avatar
-    }
+      Avatar,
+      LoginForm
+    },
   }
 </script>
 

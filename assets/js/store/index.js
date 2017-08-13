@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-
+  me: {},
+  loginForm: false
 }
 
 const getters = {
@@ -12,7 +13,8 @@ const getters = {
 }
 
 const mutations = {
-
+  showLoginForm: state => state.loginForm = true,
+  hideLoginForm: state => state.loginForm = false
 }
 
 const actions = {
