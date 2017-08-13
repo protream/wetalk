@@ -1,55 +1,87 @@
 <template>
-<div class="container-fluid app">
-  <nav class="navbar navbar-default app__navbar">
-    <div class="container-fluid ">
-      <div class="navbar-header">
-        <router-link to="/" class="navbar-brand">Wetalk</router-link>
-      </div>
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li>
-            <router-link to="/about">关于</router-link>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" class="navbar-btn">注册</a></li>
-          <li><a href="#" class="navbar-btn">登陆</a></li>
-        </ul>
+  <div class="container-fluid app__container-fluid">
+    <nav class="navbar navbar-default app__navbar">
+
+      <div class="container app__container">
+        <div class="navbar-header">
+          <router-link to="/" class="navbar-brand">Wetalk</router-link>
+        </div>
+        <div class="collapse navbar-collapse app__navbar" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+             <li><router-link to="/about">关于</router-link></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li v-if="!user.name">
+              <a>登录</a>
+            </li>
+            <li v-if="user.name">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <avatar :alt="user.name" :size="28"></avatar>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">我的主页</a></li>
+                  <li><a href="#">个人设置</a></li>
+                   <li role="separator" class="divider"></li>
+                  <li><router-link to="/">退出登录</router-link></li>
+                </ul>
+              </li>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
+    <router-view></router-view>
+    <div class="app__footer">
+     <div class="container app__container">
+     Copyright © 2017 By Protream
+     </div>
     </div>
-  </nav>
-  <router-view></router-view>
-</div>
+    </div>
+  </div>
 </template>
 
 <script>
-	export default {
-		data() {
+  import Avatar from './components/Avatar.vue'
+
+  export default {
+    data() {
       return {
-        msg: 'Hello Vue!'
+        user: { name: 'protream'}
       }
-		}
-	}
+    },
+    methods: {
+      logout() {
+        console.log('logout')
+      }
+    },
+    components: {
+      Avatar
+    }
+  }
 </script>
 
 <style>
 body {
   margin-top: 15px;
 }
-.jumbotron h1, h2 {
-  color: #FF5A5F;
+.app__container-fluid {
+  padding: 0;
 }
-.app,
-.app__body {
-  padding-right: 0;
-  padding-left: 0;
-}
-.app {
+.app__container {
   width: 940px;
+  margin: 0 auto;
 }
-.app .app__navbar {
-  background: #fff;
-  border: 0;
+.app__navbar {
+  background-color: #fff;
+  border: none;
+}
+.app__footer {
+  border-top: 1px solid #eee;
+  padding: 16px 0 24px;
+  color: #999;
+  font-size: 14px;
 }
 </style>
