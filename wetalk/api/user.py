@@ -33,11 +33,9 @@ def logout():
 
 
 @api.route('/user/me', methods=['GET'])
-def create_user():
+def current_user():
     uid = session.get('id', None)
     if not uid:
         return jsonify({})
-    print(uid)
     user = User.query.get(uid)
-    print(user)
     return jsonify(user.to_dict())
