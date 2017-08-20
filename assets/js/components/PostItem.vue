@@ -3,18 +3,23 @@
   <div class="media post">
     <div class="media-left">
       <a href="#">
-        <avatar :alt="post.author.name" :size="45" class="v-avatar--squared"></avatar>
+        <avatar :alt="post.user.username" :size="45" class="v-avatar--squared"></avatar>
       </a>
     </div>
     <div class="media-body">
-      <h4 class="media-heading" v-text="post.title"></h4>
-      <div class="post__meta">1 minutes ago</div>
+      <router-link class="media-heading" :to="'/p/' + post.id">{{ post.title }}</router-link>
+      <div class="post__meta">
+        <span class="label post__topic" :style="{background: topicBackground}">{{ post.topic.name}}</span>
+        {{ post.created_at | fromNow }} By {{ post.user.username }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import Avatar from './Avatar.vue'
+  import wc from 'word-color'
+  import moment from 'moment'
 
   export default {
     props: ['post'],
@@ -22,8 +27,18 @@
       return {
       }
     },
+    computed: {
+      topicBackground() {
+        return wc(this.post.topic.name)
+      }
+    },
     components: {
       Avatar
+    },
+    filters: {
+      fromNow(created_at) {
+        return moment(created_at).fromNow()
+      }
     }
   }
 </script>
@@ -37,5 +52,16 @@
   }
   .post__meta {
     color: #999;
+    font-size: 12px;
+  }
+  .post__topic {
+    padding: 0 .2em;
+    font-weight: normal;
+    margin-right: .5em;
+  }
+  .media-body > a {
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
   }
 </style>

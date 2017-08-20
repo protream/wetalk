@@ -22,10 +22,11 @@
         </div>
       </div>
 
-        <div class="home__post-list">
-          <post-item v-for="post in posts" :post="post"></post-item>
-          <div class="home__loadmore">Load More</div>
-        </div>
+      <div class="home__post-list">
+        <post-item v-for="post in posts" :post="post"></post-item>
+        <div class="home__loading" v-if="loading">加载中...</div>
+        <div class="home__loadmore" v-if="!loading && offset" @click="loadPosts">Load More</div>
+      </div>
       </div>
     </div>
   </div>
@@ -37,27 +38,33 @@
   export default {
     data() {
       return {
-        posts: [
-          { author: { name: 'Protream' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Tome' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Jack' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Lucy' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Alex' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Bob' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Mike' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Rose' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'cady' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Jane' }, title: 'Cras sit amet nibh libero' },
-        ]
+        loading: false,
+        offset: 0,
+        hasMore: true
       }
     }, 
     computed: {
       topics() {
         return this.$store.state.topics
+      },
+      posts() {
+        return this.$store.state.posts
+      }
+    },
+    methods: {
+      loadPosts() {
+        http.get('/api/posts', { params: { offset: this.offset } })
+          .then(({ data }) => {
+            this.$store.commit('addPosts', { posts: data.data })
+            this.offset = data.offset
+          })
       }
     },
     components: {
       PostItem
+    },
+    created() {
+      this.loadPosts()
     }
   }
 </script>
