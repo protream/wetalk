@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const state = {
   me: {},
-  loginForm: false
+  loginForm: false,
+  topics: [],
 }
 
 const getters = {
@@ -15,7 +16,8 @@ const getters = {
 const mutations = {
   showLoginForm: state => state.loginForm = true,
   hideLoginForm: state => state.loginForm = false,
-  recordMe: (state, { me }) => state.me = me
+  recordMe: (state, { me }) => state.me = me,
+  setTopics: (state, { topics }) => state.topics = topics
 }
 
 const actions = {

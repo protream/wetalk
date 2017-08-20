@@ -4,3 +4,4 @@ ENV/
 .cache/
 node_modules/
 dist/
+venv/

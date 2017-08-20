@@ -13,13 +13,11 @@
             <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 全部话题
             <span class="caret"></span>
           </button>
-          <button class="btn btn-default btn-sm" type="button">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发布帖子
-          </button>
+          <router-link to="/p/create" class="btn btn-default btn-sm" type="button">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>发布帖子
+          </router-link>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">数码</a></li>
-            <li><a href="#">编程</a></li>
-            <li><a href="#">旅游</a></li>
+            <li v-for="topic in topics"><a href="#">{{ topic.name }}</a></li>
           </ul>
         </div>
       </div>
@@ -53,7 +51,11 @@
         ]
       }
     }, 
-
+    computed: {
+      topics() {
+        return this.$store.state.topics
+      }
+    },
     components: {
       PostItem
     }
