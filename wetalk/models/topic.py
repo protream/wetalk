@@ -17,7 +17,7 @@ class Topic(Base):
         return '<Topic:{}>'.format(self.name)
 
     def to_dict(self):
-    	return {
-    		'name': self.name,
-    		'description': self.description
-    	}
+        return {
+            'name': self.name,
+            'description': self.description
+        }

@@ -18,4 +18,4 @@ def home():
 
 @front.route('/p/<path:name>')
 def other(name):
-	return render_template('index.html')
+    return render_template('index.html')
