@@ -8,18 +8,16 @@
     </div>
     <div class="media-body">
       <router-link class="media-heading" :to="'/p/' + post.id">{{ post.title }}</router-link>
-      <div class="post__meta">
-        <span class="label post__topic" :style="{background: topicBackground}">{{ post.topic.name}}</span>
-        {{ post.created_at | fromNow }} By {{ post.user.username }}
-      </div>
+      <post-meta :post="post"></post-meta>
     </div>
   </div>
 </template>
 
 <script>
   import Avatar from './Avatar.vue'
+  import PostMeta from './PostMeta.vue'
   import wc from 'word-color'
-  import moment from 'moment'
+  
 
   export default {
     props: ['post'],
@@ -33,7 +31,8 @@
       }
     },
     components: {
-      Avatar
+      Avatar,
+      PostMeta
     },
     filters: {
       fromNow(created_at) {
@@ -49,15 +48,6 @@
     padding: 15px 10px;
     border: 1px solid #eee;
     border-radius: 3px;
-  }
-  .post__meta {
-    color: #999;
-    font-size: 12px;
-  }
-  .post__topic {
-    padding: 0 .2em;
-    font-weight: normal;
-    margin-right: .5em;
   }
   .media-body > a {
     color: #333;

@@ -62,6 +62,7 @@
         .then(({ data }) => this.$store.commit('recordMe', { me: data }))
       http.get('/api/topics')
         .then(({ data }) => this.$store.commit('setTopics', { topics: data }))
+      this.$store.dispatch('loadPosts')
     }
   }
 </script>

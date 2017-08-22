@@ -1,5 +1,5 @@
 from flask import jsonify, session, request
-from wetalk.models import Post
+from wetalk.models import Post, Topic
 from wetalk.forms import PostForm
 from . import api
 
@@ -17,13 +17,21 @@ def create_post():
 
 @api.route('/posts', methods=['GET'])
 def get_posts():
+    print(request.args)
     offset = request.args.get('offset', 0, type=int)
-    limit = 10
-    q = Post.query.order_by(Post.created_at.desc())
+    topic = request.args.get('topic', '全部话题')
+    limit = 5
+    q = Post.query
+    if topic != '全部话题':
+        topic = Topic.query.filter_by(name=topic).first()
+        if topic:
+            print('topic')
+            q = q.filter(Post.topic_id == topic.id)
+    q = q.order_by(Post.created_at.desc())
     posts = q.offset(offset).limit(limit)
     data = [post.to_dict() for post in posts]
     if len(data) < limit:
-            offset = 0
+        offset = 0
     else:
-            offset = offset + limit
+        offset = offset + limit
     return jsonify(data=data, offset=offset)

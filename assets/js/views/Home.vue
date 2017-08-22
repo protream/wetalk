@@ -10,14 +10,15 @@
       <div class="home__toolbar">
         <div class="dropdown">
           <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 全部话题
+            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            <span>{{ $store.state.currentTopic }}</span>
             <span class="caret"></span>
           </button>
           <router-link to="/p/create" class="btn btn-default btn-sm" type="button">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>发布帖子
           </router-link>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li v-for="topic in topics"><a href="#">{{ topic.name }}</a></li>
+            <li v-for="topic in topics"><a @click="selectTopic(topic)">{{ topic.name }}</a></li>
           </ul>
         </div>
       </div>
@@ -38,33 +39,34 @@
   export default {
     data() {
       return {
-        loading: false,
-        offset: 0,
-        hasMore: true
+        loading: false
       }
     }, 
+    methods: {
+      loadPosts() {
+        this.loading = true
+        this.$store.dispatch('loadPosts')
+        this.loading = false
+      },
+      selectTopic(topic) {
+        this.loading = true
+        this.$store.dispatch('selectTopic', { topicName: topic.name })
+        this.loading = false
+      }
+    },
     computed: {
       topics() {
         return this.$store.state.topics
       },
       posts() {
         return this.$store.state.posts
-      }
-    },
-    methods: {
-      loadPosts() {
-        http.get('/api/posts', { params: { offset: this.offset } })
-          .then(({ data }) => {
-            this.$store.commit('addPosts', { posts: data.data })
-            this.offset = data.offset
-          })
+      },
+      offset() {
+        return this.$store.state.offset
       }
     },
     components: {
       PostItem
-    },
-    created() {
-      this.loadPosts()
     }
   }
 </script>
