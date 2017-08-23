@@ -75,7 +75,7 @@ body {
   padding: 0;
 }
 .app__container {
-  width: 940px;
+  width: 840px;
   margin: 0 auto;
 }
 .app__navbar {

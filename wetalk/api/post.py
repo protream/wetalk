@@ -25,7 +25,6 @@ def get_posts():
     if topic != '全部话题':
         topic = Topic.query.filter_by(name=topic).first()
         if topic:
-            print('topic')
             q = q.filter(Post.topic_id == topic.id)
     q = q.order_by(Post.created_at.desc())
     posts = q.offset(offset).limit(limit)
