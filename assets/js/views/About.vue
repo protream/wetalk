@@ -1,7 +1,5 @@
 <template>
-  <div class="container-fluid">
-    <div class="jumbotron">
-      <h2>About</h2>
-    </div>
+  <div class="container app__container">
+    <p>A SPA forum app based on Flask, vue, vue-router and vuex, etc.</p>
   </div>
 </template>

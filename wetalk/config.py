@@ -9,6 +9,7 @@
 class BaseConfig(object):
     """ 配置基类 """
     DEBUG = True
+    SECRET_KEY = 'secret'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

@@ -12,7 +12,8 @@ module.exports = {
       'axios',
       'jquery/src/jquery.js',
       'bootstrap/dist/js/bootstrap.js',
-      'bootstrap/dist/css/bootstrap.css'
+      'bootstrap/dist/css/bootstrap.css',
+      'yue.css/yue.css'
     ]
   },
 
